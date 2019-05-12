@@ -1,0 +1,14 @@
+ext {
+    javaVersion = "1.8"
+
+    appDependencies = [
+            apacheCommons3       : "org.apache.commons:commons-lang3:3.0"
+
+    ]
+
+    testDependencies = [
+            awaitUtil  : "org.awaitility:awaitility:2.0.0",
+            assertJCore: "org.assertj:assertj-core:3.11.1",
+            junit: "junit:junit:4.12"
+    ]
+}

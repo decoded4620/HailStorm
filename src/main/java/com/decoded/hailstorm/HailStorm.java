@@ -1,4 +1,4 @@
-package com.milli.core.distributed;
+package com.decoded.hailstorm;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -45,7 +45,7 @@ public class HailStorm {
    */
   private HailStorm(int nodeId) {
     if (nodeId == -1) {
-      this.nodeId = createNodeId();
+      this.nodeId = establishNodeIdentifier();
     } else {
       if (nodeId < 0 || nodeId > MAX_NODE_ID) {
         throw new IllegalArgumentException(String.format("NodeId must be between %d and %d", 0, MAX_NODE_ID));
@@ -58,10 +58,10 @@ public class HailStorm {
    * Default Constructor will generate its own id.
    */
   private HailStorm() {
-    this.nodeId = createNodeId();
+    this.nodeId = establishNodeIdentifier();
   }
 
-  private static int createNodeId() {
+  private static int establishNodeIdentifier() {
     try {
       StringBuilder sb = new StringBuilder();
       Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
@@ -125,7 +125,7 @@ public class HailStorm {
     long currTs = ts();
 
     if (currTs < prevTs) {
-      throw new IllegalStateException("System Clock!");
+      throw new IllegalStateException("The System Clock has been tampered with, and the previous timestamp is after the current");
     } else if (currTs == prevTs) {
       seq = (seq + 1) & MAX_SEQ;
       if (seq == 0) {

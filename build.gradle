@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'idea'
+    id 'signing'
+}
+
+group 'com.decoded'
+version '1.0'
+
+
+sourceCompatibility = 1.8
+
+apply from: './gradle/repositories.gradle'
+apply from: './gradle/dependencies.gradle'
+apply from: './gradle/publishing.gradle'
+
+
+configurations.all {
+    exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+}
+
+def globalConf = rootProject.ext
+
+dependencies {
+    Map<String, String> dependencies = globalConf.appDependencies
+    Map<String, String> testDependencies = globalConf.testDependencies
+
+    compile dependencies.apacheCommons3
+    testCompile testDependencies.junit
+    testCompile testDependencies.assertJCore
+    testCompile testDependencies.awaitUtil
+}
+
+//signing {
+//    sign publishing.publications.mavenJava
+//}
+//
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
