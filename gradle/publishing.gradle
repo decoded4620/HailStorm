@@ -32,19 +32,19 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'com.decoded'
-            artifactId = 'hailstorm'
+            artifactId = 'HailStorm'
             version = '1.0'
 
             from components.java
         }
 
         mavenJava(MavenPublication) {
-            artifactId = 'hailstorm'
+            artifactId = 'HailStorm'
             from components.java
             artifact sourcesJar
             artifact javadocJar
             pom {
-                name = 'Hailstorm'
+                name = 'HailStorm'
                 description = 'Distributed Globally Unique Id generator for Java Hosts'
                 url = 'TODO - SET THIS URL'
 
